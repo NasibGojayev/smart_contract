@@ -1,57 +1,27 @@
-# Sample Hardhat 3 Beta Project (`node:test` and `viem`)
-
-This project showcases a Hardhat 3 Beta project using the native Node.js test runner (`node:test`) and the `viem` library for Ethereum interactions.
-
-To learn more about the Hardhat 3 Beta, please visit the [Getting Started guide](https://hardhat.org/docs/getting-started#getting-started-with-hardhat-3). To share your feedback, join our [Hardhat 3 Beta](https://hardhat.org/hardhat3-beta-telegram-group) Telegram group or [open an issue](https://github.com/NomicFoundation/hardhat/issues/new) in our GitHub issue tracker.
+# Hardhat Smart Contract Project
 
 ## Project Overview
 
-This example project includes:
+This project is a **Ethereum smart contract project** built using [Hardhat](https://hardhat.org/) and Solidity. It demonstrates basic smart contract development, testing, and deployment to a test network.  
 
-- A simple Hardhat configuration file.
-- Foundry-compatible Solidity unit tests.
-- TypeScript integration tests using [`node:test`](nodejs.org/api/test.html), the new Node.js native test runner, and [`viem`](https://viem.sh/).
-- Examples demonstrating how to connect to different types of networks, including locally simulating OP mainnet.
+The purpose of this project is to:
 
-## Usage
+- Write, compile, and deploy Ethereum smart contracts.
+- Test smart contracts thoroughly using automated tests.
+- Ensure code coverage of at least 80% for core functions.
+- Optionally deploy contracts to a public testnet for demonstration.
 
-### Running Tests
+---
 
-To run all the tests in the project, execute the following command:
+## Project Structure
 
-```shell
-npx hardhat test
-```
-
-You can also selectively run the Solidity or `node:test` tests:
-
-```shell
-npx hardhat test solidity
-npx hardhat test nodejs
-```
-
-### Make a deployment to Sepolia
-
-This project includes an example Ignition module to deploy the contract. You can deploy this module to a locally simulated chain or to Sepolia.
-
-To run the deployment to a local chain:
-
-```shell
-npx hardhat ignition deploy ignition/modules/Counter.ts
-```
-
-To run the deployment to Sepolia, you need an account with funds to send the transaction. The provided Hardhat configuration includes a Configuration Variable called `SEPOLIA_PRIVATE_KEY`, which you can use to set the private key of the account you want to use.
-
-You can set the `SEPOLIA_PRIVATE_KEY` variable using the `hardhat-keystore` plugin or by setting it as an environment variable.
-
-To set the `SEPOLIA_PRIVATE_KEY` config variable using `hardhat-keystore`:
-
-```shell
-npx hardhat keystore set SEPOLIA_PRIVATE_KEY
-```
-
-After setting the variable, you can run the deployment with the Sepolia network:
-
-```shell
-npx hardhat ignition deploy --network sepolia ignition/modules/Counter.ts
-```
+hardhat_example/
+├─ contracts/ # Solidity smart contracts
+│ └─ MyContract.sol
+├─ scripts/ # Deployment scripts
+│ └─ deploy.js
+├─ test/ # Automated tests
+│ └─ MyContract.test.js
+├─ hardhat.config.js # Hardhat configuration
+├─ package.json # NPM project metadata
+└─ README.md
