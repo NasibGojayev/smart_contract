@@ -12,16 +12,46 @@ The purpose of this project is to:
 - Optionally deploy contracts to a public testnet for demonstration.
 
 ---
+# Hardhat  Project
 
-## Project Structure
+This project is an Ethereum smart contract project built using Solidity and Hardhat. It includes:
 
-hardhat_example/
-├─ contracts/ # Solidity smart contracts
-│ └─ MyContract.sol
-├─ scripts/ # Deployment scripts
-│ └─ deploy.js
-├─ test/ # Automated tests
-│ └─ MyContract.test.js
-├─ hardhat.config.js # Hardhat configuration
-├─ package.json # NPM project metadata
-└─ README.md
+- Smart contracts in `contracts/`
+- Deployment scripts in `scripts/`
+- Automated tests in `test/`
+
+The purpose of this project is to demonstrate:
+
+- Writing and compiling Solidity contracts
+- Running automated tests with Hardhat and Chai
+- Deploying contracts to a local Hardhat network or public testnets like Sepolia
+- Ensuring tests cover core functionality (≥80% coverage)
+
+## Requirements
+
+- Node.js
+- Hardhat
+- Solidity ≥0.8.x
+
+## How it works
+
+1. Compile the contracts:
+
+```bash
+npx hardhat compile
+Run automated tests:
+
+bash
+Kodu kopyala
+npx hardhat test
+Deploy contracts (local network):
+
+bash
+Kodu kopyala
+npx hardhat run scripts/deploy.js
+Deploy to testnet (Sepolia):
+
+bash
+Kodu kopyala
+npx hardhat run scripts/deploy.js --network baseSepolia
+Tests ensure all core functions behave correctly. Deployment requires sufficient funds for gas when using a public testnet.
