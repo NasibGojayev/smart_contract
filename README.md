@@ -1,55 +1,93 @@
-Decentralized Quadratic Funding Platform
+# Decentralized Quadratic Funding Platform
 
-🌟 Project Overview
+This project is a decentralized application (DApp) that enables fair and democratic funding for public goods using **Quadratic Funding (QF)**. Instead of favoring large donors, QF boosts projects supported by many contributors, making funding more community-driven and transparent.
 
-This project is a decentralized application (DApp) designed to facilitate fair, democratic, and community-driven funding for public goods and open-source projects. It moves beyond traditional crowdfunding by employing the principles of Quadratic Funding (QF) to maximize the influence of individual community members.
+---
 
-The core goal is to prioritize projects that have broad support across many contributors, rather than projects that simply receive large, singular donations.
+## 🌟 How It Works
 
-⚙️ How It Works: The Decentralized Architecture
+### 1. On-Chain (Smart Contracts)
+The core logic runs on Solidity smart contracts deployed to an EVM-compatible testnet.  
+Smart contracts handle:
 
-The platform operates on a hybrid architecture, combining the trustless security of smart contracts with the scalability and responsiveness of a traditional database.
+- Secure fund storage  
+- Donor contributions  
+- Matching pool funds  
+- Round creation and settlement  
+- Automatic Quadratic Funding calculations  
 
-1. Decentralized Core (Smart Contracts)
+All contributions and results are transparent and trustless.
 
-The core logic and fund security are handled by Solidity smart contracts deployed on an Ethereum Virtual Machine (EVM) compatible Layer 2 (L2) network (such as the one simulated by the hardhatOp network configuration).
+### 2. Off-Chain (Database)
+To keep the UI fast and scalable, a NoSQL database (e.g., Firestore) is used for:
 
-Fund Management: Smart contracts securely hold all donated funds and the dedicated matching pool.
+- Project listings and metadata  
+- Real-time donation stats  
+- Indexing blockchain events for quick queries  
 
-Donation Recording: Every single contribution is recorded immutably on the blockchain, ensuring transparency and auditability.
+The blockchain ensures trust; the database ensures performance.
 
-Trustless Execution: The contract logic automatically executes the funding round, calculates the final match amounts based on the QF rules, and distributes funds without needing a central intermediary.
+---
 
-2. Off-Chain Data and User Experience (Database)
+## 🗳️ Quadratic Funding (QF)
 
-To provide a seamless, real-time user interface, the application uses a NoSQL database (like Firestore) for efficient data handling:
+Quadratic Funding rewards projects with broad support.
 
-Project Listings: Storing details, descriptions, and metadata for projects seeking funding.
+- Traditional: One $100 donor = $100 impact  
+- QF: 10 donors × $1 each = **more** impact  
 
-UI State: Managing the user interface state, like real-time totals, leaderboards, and user profiles.
+The formula used in the matching round:
 
-Indexing: The off-chain database indexes the on-chain donation events, making the front-end application fast and avoiding slow and expensive blockchain read operations.
+\[
+\text{Match} = \text{PoolFactor} \times \left( \sum_{i=1}^{n} \sqrt{\text{donation}_i} \right)^2
+\]
 
-🗳️ The Core Mechanism: Quadratic Funding (QF)
+This makes the system sybil-resistant and crowd-powered.
 
-Quadratic Funding is the engine that drives the democratic matching process.
+---
 
-The principle is simple: The size of the match a project receives is proportional to the square of the sum of the square roots of the donations it receives.
+# Quadratic Funding DAO — Smart Contracts
 
-Why Quadratic Funding?
+The repository contains all core smart contracts:
 
-QF dramatically reduces the leverage of wealthy donors and increases the power of the crowd.
+- **GrantRegistry**
+- **RoundManager**
+- **DonationVault**
+- **MatchingPool**
+- **GovernanceToken (ERC20)**
 
-Traditional Crowdfunding: If one person donates $100, the project gets $100.
+These are built with:
 
-Quadratic Funding: The formula ensures that a project receiving ten $1 donations is given a larger match amount than a project receiving one $100 donation, even though the total contributed amount is the same. This system actively seeks out and rewards projects with popular consensus.
+- **Hardhat**
+- **Solidity**
+- **Viem**
+- **TypeScript**
 
-The QF Formula
+Solidity `.t.sol` test files validate the core contract functions.
 
-The final match amount awarded to a project from the main matching pool is determined by the following simplified mathematical relationship, calculated automatically by the smart contracts during the settlement phase:
+---
 
-$$\text{Match Amount} = \text{Matching Pool Factor} \times \left( \sum_{i=1}^{n} \sqrt{\text{Contribution}_i} \right)^2$$
+## 🧪 Testing
 
-Where $n$ is the total number of contributions received for the project.
+Run the full test suite:
 
-This formula ensures that the calculation is sybil-resistant (it encourages many small donations) and maximizes the return on community preference.
+```bash
+npx hardhat test
+
+
+## Deployment (Testnet)
+
+The contracts are deployed on **Base Sepolia**:
+
+**Contract Address:**  
+`<INSERT_TESTNET_CONTRACT_ADDRESS_HERE>`
+
+**Network:** Base Sepolia  
+**Chain ID:** 84532  
+**RPC:** `https://sepolia.base.org`
+
+To redeploy:
+
+```bash
+npx hardhat run scripts/deploy.js --network baseSepolia
+
