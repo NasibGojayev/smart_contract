@@ -1,57 +1,55 @@
-# Hardhat Smart Contract Project
+Decentralized Quadratic Funding Platform
 
-## Project Overview
+🌟 Project Overview
 
-This project is a **Ethereum smart contract project** built using [Hardhat](https://hardhat.org/) and Solidity. It demonstrates basic smart contract development, testing, and deployment to a test network.  
+This project is a decentralized application (DApp) designed to facilitate fair, democratic, and community-driven funding for public goods and open-source projects. It moves beyond traditional crowdfunding by employing the principles of Quadratic Funding (QF) to maximize the influence of individual community members.
 
-The purpose of this project is to:
+The core goal is to prioritize projects that have broad support across many contributors, rather than projects that simply receive large, singular donations.
 
-- Write, compile, and deploy Ethereum smart contracts.
-- Test smart contracts thoroughly using automated tests.
-- Ensure code coverage of at least 80% for core functions.
-- Optionally deploy contracts to a public testnet for demonstration.
+⚙️ How It Works: The Decentralized Architecture
 
----
-# Hardhat  Project
+The platform operates on a hybrid architecture, combining the trustless security of smart contracts with the scalability and responsiveness of a traditional database.
 
-This project is an Ethereum smart contract project built using Solidity and Hardhat. It includes:
+1. Decentralized Core (Smart Contracts)
 
-- Smart contracts in `contracts/`
-- Deployment scripts in `scripts/`
-- Automated tests in `test/`
+The core logic and fund security are handled by Solidity smart contracts deployed on an Ethereum Virtual Machine (EVM) compatible Layer 2 (L2) network (such as the one simulated by the hardhatOp network configuration).
 
-The purpose of this project is to demonstrate:
+Fund Management: Smart contracts securely hold all donated funds and the dedicated matching pool.
 
-- Writing and compiling Solidity contracts
-- Running automated tests with Hardhat and Chai
-- Deploying contracts to a local Hardhat network or public testnets like Sepolia
-- Ensuring tests cover core functionality (≥80% coverage)
+Donation Recording: Every single contribution is recorded immutably on the blockchain, ensuring transparency and auditability.
 
-## Requirements
+Trustless Execution: The contract logic automatically executes the funding round, calculates the final match amounts based on the QF rules, and distributes funds without needing a central intermediary.
 
-- Node.js
-- Hardhat
-- Solidity ≥0.8.x
+2. Off-Chain Data and User Experience (Database)
 
-## How it works
+To provide a seamless, real-time user interface, the application uses a NoSQL database (like Firestore) for efficient data handling:
 
-1. Compile the contracts:
+Project Listings: Storing details, descriptions, and metadata for projects seeking funding.
 
-```bash
-npx hardhat compile
-Run automated tests:
+UI State: Managing the user interface state, like real-time totals, leaderboards, and user profiles.
 
-bash
-Kodu kopyala
-npx hardhat test
-Deploy contracts (local network):
+Indexing: The off-chain database indexes the on-chain donation events, making the front-end application fast and avoiding slow and expensive blockchain read operations.
 
-bash
-Kodu kopyala
-npx hardhat run scripts/deploy.js
-Deploy to testnet (Sepolia):
+🗳️ The Core Mechanism: Quadratic Funding (QF)
 
-bash
-Kodu kopyala
-npx hardhat run scripts/deploy.js --network baseSepolia
-Tests ensure all core functions behave correctly. Deployment requires sufficient funds for gas when using a public testnet.
+Quadratic Funding is the engine that drives the democratic matching process.
+
+The principle is simple: The size of the match a project receives is proportional to the square of the sum of the square roots of the donations it receives.
+
+Why Quadratic Funding?
+
+QF dramatically reduces the leverage of wealthy donors and increases the power of the crowd.
+
+Traditional Crowdfunding: If one person donates $100, the project gets $100.
+
+Quadratic Funding: The formula ensures that a project receiving ten $1 donations is given a larger match amount than a project receiving one $100 donation, even though the total contributed amount is the same. This system actively seeks out and rewards projects with popular consensus.
+
+The QF Formula
+
+The final match amount awarded to a project from the main matching pool is determined by the following simplified mathematical relationship, calculated automatically by the smart contracts during the settlement phase:
+
+$$\text{Match Amount} = \text{Matching Pool Factor} \times \left( \sum_{i=1}^{n} \sqrt{\text{Contribution}_i} \right)^2$$
+
+Where $n$ is the total number of contributions received for the project.
+
+This formula ensures that the calculation is sybil-resistant (it encourages many small donations) and maximizes the return on community preference.
